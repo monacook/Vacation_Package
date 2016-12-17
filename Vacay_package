@@ -1,0 +1,76 @@
+import java.awt.event.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
+import javax.swing.JCheckBox;
+
+package vacationpackage;
+
+public class VacationPackage {
+    private JCheckBox check;
+    private JPanel panel;
+    private JFrame frame;
+    private JTextArea textarea;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        final int ROWS = 5;
+        final int COLUMNS = 35;
+
+        JTextArea textarea = new JTextArea(ROWS, COLUMNS);
+        textarea.setEditable(false);
+
+        JCheckBox check1 = new JCheckBox("Ocean spot", false);
+        JCheckBox check2 = new JCheckBox("Rental Car", false);
+        JCheckBox check3 = new JCheckBox("Shopping Package", false);
+        JCheckBox check4 = new JCheckBox("Adventure time", false);
+        JCheckBox check5 = new JCheckBox("Wine Room", false);
+
+        // Creating generic ItemListener object
+        ItemListener itemListener = new ItemListener() {
+            public void itemStateChanged(ItemEvent event) {
+                JCheckBox checkBox = (JCheckBox)event.getSource();
+
+                // Check if JTextArea's text contains JCheckBox's text.
+                // If it doesn't,
+                // append it to JTextArea's text.
+                if (textarea.getText().contains(checkBox.getText()) == false) {
+                    textarea.append(checkBox.getText() + ", ");
+
+                } else {
+                    textarea.setText(textarea.getText().replace(
+                            checkBox.getText() + ", ", ""));
+                }
+            }
+        };
+
+        // Add created ItemListener object to JCheckBox objects
+        check1.addItemListener(itemListener);
+        check2.addItemListener(itemListener);
+        check3.addItemListener(itemListener);
+        check4.addItemListener(itemListener);
+        check5.addItemListener(itemListener);
+
+        // When user selects check box, set the text label according to
+        // selected box
+
+        JPanel panel = new JPanel();
+
+        panel.add(textarea);
+        panel.add(check1);
+        panel.add(check2);
+        panel.add(check4);
+        panel.add(check4);
+        panel.add(check5);
+        frame.add(panel);
+
+        final int FRAME_WIDTH = 500;
+        final int FRAME_HEIGHT = 300;
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        frame.setTitle("Vacation Package");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+    }
+ }
